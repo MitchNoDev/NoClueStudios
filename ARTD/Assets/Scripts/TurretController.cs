@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour {
-    
+
     [Header("Stats")]
+    public int damage;
+
     public float fireRate;
     private float fireCountdown;
 
@@ -12,7 +14,8 @@ public class TurretController : MonoBehaviour {
     public EnemySpawn enemySpawn;
 
     public GameObject bulletPrefab;
-	
+    public Transform firePoint;
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -28,7 +31,7 @@ public class TurretController : MonoBehaviour {
                 fireCountdown = 1f / fireRate;
             }
             fireCountdown -= Time.deltaTime;
-        }     
+        }   
         
 	}
 
@@ -53,6 +56,13 @@ public class TurretController : MonoBehaviour {
     void Shot(GameObject target)
     {
         //Debug.Log("shot");
+        GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        
+        if (bullet != null)
+        {
+            bullet.Spawn(target, damage);
+        }
     }
 
 }

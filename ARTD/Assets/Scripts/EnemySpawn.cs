@@ -42,6 +42,22 @@ public class EnemySpawn : MonoBehaviour {
                 temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
                 enemies.Add(temp);
                 break;
+            case 2:
+                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+                enemies.Add(temp);
+                break;
+            case 3:
+                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+                enemies.Add(temp);
+                break;
+            case 4:
+                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+                enemies.Add(temp);
+                break;
+            case 5:
+                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+                enemies.Add(temp);
+                break;
         }
 
         //Increment Wave

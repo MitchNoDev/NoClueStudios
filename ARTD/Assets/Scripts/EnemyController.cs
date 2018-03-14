@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 
+    [Header("Stats")]
+    public int health;
+
+    [Header("Game Object References")]
     public GameObject target;
     public EnemySpawn enemySpawn;
 
@@ -13,14 +17,20 @@ public class EnemyController : MonoBehaviour {
 	void Start ()
     {
         target = GameObject.FindGameObjectWithTag("Castle");
+        enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.destination = target.transform.position;        
 	}
-	
-    void OnDestroy ()
-    {
-        enemySpawn.enemies.Remove(this.gameObject);
-    }
 
+    void Update()
+    {
+        if(health <= 0)
+        {
+            //Debug.Log("ding");
+            enemySpawn.enemies.Remove(gameObject);
+            Destroy(gameObject);
+            return;
+        }
+    }
 }

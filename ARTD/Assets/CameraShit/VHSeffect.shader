@@ -9,7 +9,7 @@ Shader "Custom/VHSeffect"
 	_OffsetNoiseX("Offset Noise X", float) = 0.0
 		_OffsetNoiseY("Offset Noise Y", float) = 0.0
 		_OffsetPosY("Offset position Y", float) = 0.0
-		_OffsetColor("Offset Color", Range(0.005, 0.1)) = 0
+		_OffsetColor("Offset Color", Range(0.0, 0.1)) = 0
 		_OffsetDistortion("Offset Distortion", float) = 500
 		_Intensity("Mask Intensity", Range(0.0, 1)) = 1.0
 	}
