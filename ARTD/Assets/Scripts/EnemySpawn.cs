@@ -21,7 +21,7 @@ public class EnemySpawn : MonoBehaviour {
         timer += Time.deltaTime;
         if(timer >= spawnTimer)
         {
-            Debug.Log("Spawn");
+            //Debug.Log("Spawn");
             SpawnEnemy();
         }
 	}

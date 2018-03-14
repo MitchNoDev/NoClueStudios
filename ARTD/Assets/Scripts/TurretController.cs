@@ -52,7 +52,7 @@ public class TurretController : MonoBehaviour {
 
     void Shot(GameObject target)
     {
-        Debug.Log("shot");
+        //Debug.Log("shot");
     }
 
 }

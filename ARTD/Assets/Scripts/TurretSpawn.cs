@@ -6,6 +6,8 @@ public class TurretSpawn : MonoBehaviour {
     
     public GameObject turretPrefab;
 
+    public Vector3 spawnOffset;
+
 	void Update ()
     {		
         //Check for left mouse click
@@ -21,7 +23,7 @@ public class TurretSpawn : MonoBehaviour {
                 {
                     //Spawns turret
                     //Going to be changed to radial menu of turret types
-                    Instantiate(turretPrefab, position: (objectHit.transform.position), rotation: Quaternion.Euler(0,0,0), parent: objectHit.transform);
+                    Instantiate(turretPrefab, position: (objectHit.transform.position += spawnOffset), rotation: Quaternion.Euler(0,0,0), parent: objectHit.transform);
                 }
             }
         }
