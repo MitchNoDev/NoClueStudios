@@ -5,27 +5,61 @@ using UnityEngine;
 public class TurretSpawn : MonoBehaviour {
     
     public GameObject turretPrefab;
+    public PathFinding pathfinding;
+    public GridController grid;
+    bool nodeSelected;
 
     public Vector3 spawnOffset;
 
-	void Update ()
-    {		
-        //Check for left mouse click
-        if (Input.GetMouseButtonDown(0))
+    private void Start()
+    {
+        pathfinding = GetComponent<PathFinding>();
+        grid = GetComponent<GridController>();
+    }
+
+    void Update ()
+    {	
+        if (Input.GetMouseButtonDown(0) && !nodeSelected)
         {
-            RaycastHit hit;            
+            RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                //sets hit transform for spawn
                 Transform objectHit = hit.transform;
-                //Check for raycast target tag
-                if (hit.transform.gameObject.tag == "Turret Spawn")
+
+                objectHit.gameObject.layer = 8;
+                grid.FillGrid();
+                pathfinding.triggerPath = true;
+            }
+        }
+        if (Input.GetMouseButtonDown(0) && nodeSelected)
+        { RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                Transform objectHit = hit.transform;
+
+               
+                if (objectHit.gameObject.tag == "Turret Spawn")
                 {
-                    //Spawns turret
-                    //Going to be changed to radial menu of turret types
-                    Instantiate(turretPrefab, position: (objectHit.transform.position += spawnOffset), rotation: Quaternion.Euler(0,0,0), parent: objectHit.transform);
+                    SpawnTurret(objectHit.gameObject);
                 }
             }
         }
 	}
+
+    void SpawnTurret(GameObject objHit)
+    {       
+
+        if (pathfinding.possible)
+        {
+            Debug.Log("bad");
+            Instantiate(turretPrefab, position: (objHit.transform.position + spawnOffset), rotation: Quaternion.Euler(0, 0, 0), parent: objHit.transform);            
+        }else
+        {
+            Debug.Log("Good");
+            objHit.layer = 0;
+            grid.FillGrid();
+            pathfinding.triggerPath = true;
+        }       
+
+    }
 }

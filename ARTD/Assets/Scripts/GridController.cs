@@ -18,11 +18,27 @@ public class GridController : MonoBehaviour {
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
+    }    
+
+    //Returns the size of the grid
+    public int MaxSize
+    {
+        get
+        {
+            return gridSizeX *gridSizeY;
+        }
     }
 
     void CreateGrid()
+    {        
+        //Create 2D array of Nodes
+        grid = new Node[gridSizeX, gridSizeY];       
+
+        FillGrid();
+    }
+
+    public void FillGrid()
     {
-        grid = new Node[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
 
         for (int x = 0; x < gridSizeX; x++)
@@ -36,31 +52,39 @@ public class GridController : MonoBehaviour {
         }
     }
 
+    //Used to get Nodes directly next to current node
     public List<Node> GetNeighbours(Node node)
     {
+        //creates list of nodes for neighbour checks
         List<Node> neighbours = new List<Node>();
 
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (x == 0 && y == 0)
+                //Checks neighbours for diagonal or current node(s)
+                if (x == 0 && y == 0
+                    || x == -1 && y == -1
+                    || x == 1 && y == 1
+                    || x == -1 && y == 1
+                    || x == 1 && y == -1)
                     continue;
 
                 int checkX = node.gridX + x;
                 int checkY = node.gridY + y;
 
+                //Checks to see if neighbour is off the grid
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
+                    //Adds current neighbour checked to list
                     neighbours.Add(grid[checkX, checkY]);
                 }
             }
         }
-
         return neighbours;
     }
 
-
+    //Find Node on grid from world position transform
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
@@ -74,6 +98,8 @@ public class GridController : MonoBehaviour {
     }
 
     public List<Node> path;
+
+    //Gizmos for debugging
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));

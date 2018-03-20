@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour {
     {
         //Debug.Log("hit something");
 
-        target.GetComponent<EnemyController>().health -= damage;
+        target.GetComponent<EnemyUnit>().health -= damage;
 
         Destroy(gameObject);
         return;
