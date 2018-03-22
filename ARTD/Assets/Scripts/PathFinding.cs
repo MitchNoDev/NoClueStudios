@@ -20,8 +20,7 @@ public class PathFinding : MonoBehaviour
     {
         //Needs to be changed to on level start && tower being placed
         if (triggerPath)
-        {
-            Debug.Log("ding");
+        {            
             FindPath(seeker.position, target.position);
             triggerPath = false;
         }
@@ -32,10 +31,8 @@ public class PathFinding : MonoBehaviour
     {
         //start position
         Node startNode = grid.NodeFromWorldPoint(startPos);
-        //Debug.Log("Start" + startNode.worldPosition);
         //end position
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
-        //Debug.Log("Target" + targetNode.worldPosition);
         
         Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
         //nodes that have bee used
@@ -105,8 +102,6 @@ public class PathFinding : MonoBehaviour
 
         //returns the grids optimal path
         grid.path = path;
-
-        //Debug.Log(path.Count);
     }
 
     //Gets distance of two nodes

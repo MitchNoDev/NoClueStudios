@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 14158424}
   - component: {fileID: 14158423}
   - component: {fileID: 14158422}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -2626,6 +2626,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 401003669}
+  - component: {fileID: 401003673}
   - component: {fileID: 401003668}
   - component: {fileID: 401003670}
   - component: {fileID: 401003672}
@@ -2653,6 +2654,7 @@ MonoBehaviour:
   pathfinding: {fileID: 0}
   grid: {fileID: 0}
   spawnOffset: {x: 0, y: 1, z: 0}
+  selectedNode: {fileID: 0}
 --- !u!4 &401003669
 Transform:
   m_ObjectHideFlags: 0
@@ -2672,15 +2674,22 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 401003667}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b670a2bd9bebe6458c2bfa0fc2a6941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawner: {fileID: 0}
-  enemyPrefab: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
-    type: 2}
+  enemySpawner: {fileID: 961206479}
+  BPM: {fileID: 401003673}
   enemies: []
+  waveOne:
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  waveTwo:
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
   spawnTimer: 2
   waveNumber: 0
 --- !u!114 &401003671
@@ -2714,6 +2723,21 @@ MonoBehaviour:
     m_Bits: 256
   gridWorldSize: {x: 10, y: 10}
   nodeRadius: 0.5
+--- !u!114 &401003673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 401003667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53204bba145bd0f45b23f937606c397a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatsPerMinute: 120
+  timeForBeat: 0
+  timeScaleMinute: 60
+  timeScaleSecond: 1
 --- !u!1 &513307398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3145,7 +3169,7 @@ GameObject:
   - component: {fileID: 620382471}
   - component: {fileID: 620382470}
   - component: {fileID: 620382469}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -5485,7 +5509,7 @@ GameObject:
   - component: {fileID: 1243625086}
   - component: {fileID: 1243625085}
   - component: {fileID: 1243625084}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -5569,7 +5593,7 @@ GameObject:
   - component: {fileID: 1266712535}
   - component: {fileID: 1266712534}
   - component: {fileID: 1266712533}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -5653,7 +5677,7 @@ GameObject:
   - component: {fileID: 1283444313}
   - component: {fileID: 1283444312}
   - component: {fileID: 1283444311}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -6367,7 +6391,7 @@ GameObject:
   - component: {fileID: 1414404381}
   - component: {fileID: 1414404380}
   - component: {fileID: 1414404379}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -7490,7 +7514,7 @@ GameObject:
   - component: {fileID: 1777345454}
   - component: {fileID: 1777345453}
   - component: {fileID: 1777345452}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -8694,7 +8718,7 @@ GameObject:
   - component: {fileID: 2042563988}
   - component: {fileID: 2042563987}
   - component: {fileID: 2042563986}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}
@@ -9076,7 +9100,7 @@ GameObject:
   - component: {fileID: 2136940759}
   - component: {fileID: 2136940758}
   - component: {fileID: 2136940757}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Node
   m_TagString: Turret Spawn
   m_Icon: {fileID: 0}

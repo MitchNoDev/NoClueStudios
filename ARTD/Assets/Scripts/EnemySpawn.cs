@@ -4,66 +4,73 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour {
 
+    [Header("Object References")]
     public GameObject enemySpawner;
-    public GameObject enemyPrefab;
+
+    public BPM BPM;
 
     public List<GameObject> enemies;
 
+    [Header("Waves Lists")]
+    public List<GameObject> waveOne;
+    public List<GameObject> waveTwo;
+
+    [Header ("Wave Triggers")]
     [SerializeField]
-    private float spawnTimer = 2f;
-    private float timer = 0f;
+    private float spawnTimer;
+    private bool waveActive = false;
 
     public int waveNumber;
-	
-	void Update ()
-    {
-        //Timer for spawn delay
-        timer += Time.deltaTime;
-        if(timer >= spawnTimer)
-        {
-            //Debug.Log("Spawn");
-            SpawnEnemy();
-        }
-	}
 
-    void SpawnEnemy()
+    private void Start()
     {
-        GameObject temp;
+        spawnTimer = BPM.timeForBeat;
+    }
+
+    void Update()
+    {
+        spawnTimer = BPM.timeForBeat;
+        if (!waveActive)
+        {
+            waveActive = true;
+            StartWave();
+        }
+        
+        if(enemies.Count == 0)
+        {
+            waveActive = false;
+        }
+    }
+
+    void StartWave()
+    {        
         //Case system for waves
         switch (waveNumber)
         {            
             //first wave
             case 0:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
+                StartCoroutine(SpawnEnemy(waveOne));
                 break;
             //Second wave
             case 1:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
-                break;
-            case 2:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
-                break;
-            case 3:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
-                break;
-            case 4:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
-                break;
-            case 5:
-                temp = Instantiate(enemyPrefab, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
+                StartCoroutine(SpawnEnemy(waveTwo));
                 break;
         }
 
         //Increment Wave
-        ++waveNumber;
+        ++waveNumber;        
+    }
 
-        //Reset timer
-        timer = 0f;
+    IEnumerator SpawnEnemy(List<GameObject> currentWave)
+    {
+        GameObject temp;
+
+        foreach (GameObject creep in currentWave)
+        {
+            temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+            enemies.Add(temp);
+            yield return new WaitForSeconds(spawnTimer);
+        }
+        
     }
 }

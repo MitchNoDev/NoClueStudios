@@ -9,18 +9,11 @@ public class EnemyUnit : MonoBehaviour {
     public int health;
 
     [Header("Game Object References")]
-    public GameObject target;
     public EnemySpawn enemySpawn;
-
-    private NavMeshAgent agent;
 	
 	void Start ()
     {
-        target = GameObject.FindGameObjectWithTag("Castle");
-        enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();
-
-        agent = GetComponent<NavMeshAgent>();
-        agent.destination = target.transform.position;        
+        enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();   
 	}
 
     void Update()
