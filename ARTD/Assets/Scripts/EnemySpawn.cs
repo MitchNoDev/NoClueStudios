@@ -55,10 +55,9 @@ public class EnemySpawn : MonoBehaviour {
             case 1:
                 StartCoroutine(SpawnEnemy(waveTwo));
                 break;
-        }
-
-        //Increment Wave
-        ++waveNumber;        
+            case 2:
+                break;
+        }               
     }
 
     IEnumerator SpawnEnemy(List<GameObject> currentWave)
@@ -67,10 +66,14 @@ public class EnemySpawn : MonoBehaviour {
 
         foreach (GameObject creep in currentWave)
         {
-            temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-            enemies.Add(temp);
-            yield return new WaitForSeconds(spawnTimer);
+            while (true)
+            {
+                temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+                enemies.Add(temp);
+                yield return new WaitForSeconds(spawnTimer);
+            }
         }
-        
+
+        ++waveNumber;
     }
 }

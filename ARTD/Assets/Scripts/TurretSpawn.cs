@@ -47,7 +47,7 @@ public class TurretSpawn : MonoBehaviour {
                 }
                 else if (selectedNode != null && selectedNode == objectHit)
                 {
-                    SpawnTurret(selectedNode);
+                    SpawnTurret(selectedNode);                    
                 }
             }            
         }
@@ -66,12 +66,8 @@ public class TurretSpawn : MonoBehaviour {
     {       
         if (pathfinding.possible)
         {
-            Instantiate(turretPrefab, position: (objHit.transform.position + spawnOffset), rotation: Quaternion.Euler(0, 0, 0), parent: objHit.transform);            
-        }else
-        {
-            objHit.layer = 0;
-            grid.FillGrid();
-            pathfinding.triggerPath = true;
+            Instantiate(turretPrefab, position: (objHit.transform.position + spawnOffset), rotation: Quaternion.Euler(0, 0, 0), parent: objHit.transform);
+            selectedNode = null;
         }
     }
 }

@@ -79,8 +79,10 @@ public class PathFinding : MonoBehaviour
             if (openSet.Count == 0)
             {
                 possible = false;
-                Debug.Log("fuck");
                 return;
+            }else
+            {
+                possible = true;
             }
         }
     }

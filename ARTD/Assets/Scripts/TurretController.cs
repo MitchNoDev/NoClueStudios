@@ -18,9 +18,16 @@ public class TurretController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update ()
-    {
+    {  
         enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();
-        GameObject tar = GetClosestEnemy(enemySpawn.enemies);
+
+        GameObject tar = null;
+
+        if (enemySpawn.enemies.Count != 0)
+        {
+            tar = GetClosestEnemy(enemySpawn.enemies);
+        }
+
         if (tar != null)
         {
             transform.LookAt(tar.transform);
@@ -37,7 +44,7 @@ public class TurretController : MonoBehaviour {
 
     GameObject GetClosestEnemy(List<GameObject> enemies)
     {
-       GameObject bestTarget = null;
+        GameObject bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
         foreach (GameObject potentialTarget in enemies)
@@ -55,7 +62,6 @@ public class TurretController : MonoBehaviour {
 
     void Shot(GameObject target)
     {
-        //Debug.Log("shot");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         

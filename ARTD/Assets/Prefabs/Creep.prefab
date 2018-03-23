@@ -97,8 +97,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  target: {fileID: 0}
+  jumpTimer: 0
   enemySpawn: {fileID: 0}
+  BPM: {fileID: 0}
+  grid: {fileID: 0}
 --- !u!136 &136111674014182938
 CapsuleCollider:
   m_ObjectHideFlags: 1
