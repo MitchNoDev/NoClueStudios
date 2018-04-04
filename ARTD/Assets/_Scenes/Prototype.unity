@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: a22fa31ba9c3be24ebd7717ac7074661, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!1 &459935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,9 +2688,13 @@ MonoBehaviour:
   enemies: []
   waveOne:
   - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
-  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
-  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
   waveTwo:
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  waveThree:
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
+  - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
   - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
   - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
   - {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938, type: 2}
@@ -2741,7 +2745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53204bba145bd0f45b23f937606c397a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatsPerMinute: 12
+  beatsPerMinute: 120
   timeForBeat: 0
   timeScaleMinute: 60
   timeScaleSecond: 1
@@ -3076,7 +3080,7 @@ Transform:
   m_GameObject: {fileID: 562150568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.5, y: 0, z: -4.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -5339,6 +5343,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveOne.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4122939061365720, guid: dda814227f09bd04b861e7ffa2695d43, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5389,8 +5403,50 @@ Prefab:
     - target: {fileID: 114495261343940444, guid: dda814227f09bd04b861e7ffa2695d43,
         type: 2}
       propertyPath: beatsPerMinute
-      value: 12
+      value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.data[0]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.data[1]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.data[3]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.data[2]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveThree.Array.data[4]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveOne.Array.data[2]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
+    - target: {fileID: 114916804746219218, guid: dda814227f09bd04b861e7ffa2695d43,
+        type: 2}
+      propertyPath: waveOne.Array.data[1]
+      value: 
+      objectReference: {fileID: 1786922680686350, guid: 8b53305838285db42b3e104312562938,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dda814227f09bd04b861e7ffa2695d43, type: 2}
   m_IsPrefabParent: 0

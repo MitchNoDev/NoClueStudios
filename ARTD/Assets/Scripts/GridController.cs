@@ -39,7 +39,7 @@ public class GridController : MonoBehaviour {
 
     public void FillGrid()
     {
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+        Vector3 worldBottomLeft = transform.position - ((Vector3.right * gridWorldSize.x) / 2)- ((Vector3.forward * gridWorldSize.y) / 2);
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -112,7 +112,7 @@ public class GridController : MonoBehaviour {
                 if (path != null)
                     if (path.Contains(n))
                         Gizmos.color = Color.black;
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                Gizmos.DrawCube(n.worldPosition, Vector3.one);
             }
         }
     }

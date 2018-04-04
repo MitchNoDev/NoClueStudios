@@ -10,6 +10,7 @@ public class EnemyUnit : MonoBehaviour {
 
     [SerializeField]
     private float jumpTimer;
+    private float timer = 0;
 
     [Header("Game Object References")]
     public EnemySpawn enemySpawn;
@@ -20,7 +21,7 @@ public class EnemyUnit : MonoBehaviour {
 
     private int nodeInPath = 0;
     private int endOfPath = 0;
-    [SerializeField]
+
     private Node curNode;
     private Node nextNode;
 
@@ -31,6 +32,7 @@ public class EnemyUnit : MonoBehaviour {
         BPM = GameObject.FindGameObjectWithTag("GameController").GetComponent<BPM>();
         path = grid.path;
         jumpTimer = BPM.timeForBeat;
+        timer = 0;
     }
 
     void Update()
@@ -39,11 +41,9 @@ public class EnemyUnit : MonoBehaviour {
 
         path = grid.path;
 
-        print(path.Count);
-
         if (health <= 0)
         {            
-            StartCoroutine(Die());
+            StartCoroutine("Die");
             return;
         }
 
@@ -51,55 +51,40 @@ public class EnemyUnit : MonoBehaviour {
         {
             case 0:
                 curNode = path[nodeInPath];
-                nextNode = path[nodeInPath + 1];
-                nodeInPath++;
+                nextNode = path[nodeInPath];
                 endOfPath++;
-                print(endOfPath);
                 break;
             case 1:
-                StartCoroutine("Jump");
-                curNode = path[nodeInPath];
-                nextNode = path[nodeInPath + 1];
-                //nodeInPath++;
+                Jump();
 
                 if (curNode == path[path.Count - 2])
                 {
                     endOfPath++;
-                }
-                print(endOfPath);
+                }                
                 break;
             case 2:
-                StartCoroutine("Jump");
-                endOfPath++;
-                print(endOfPath);
-                break;
-            case 3:
-                //deal damage to castle
                 StartCoroutine("Die");
                 endOfPath++;
-                print(endOfPath);
-                break;
-            case 4:
-                print(endOfPath);
                 break;
         }
 
         
     }
 
-    IEnumerator Jump()
+    void Jump()
     {
-        while (true)
+        if (timer >= jumpTimer)
         {
             Vector3 tar = nextNode.worldPosition;
             transform.position = tar;
 
-            print("JBegin");
-            yield return new WaitForSeconds(jumpTimer);
-            print("JEnd");
-
+            curNode = path[nodeInPath];
+            nextNode = path[nodeInPath + 1];
             nodeInPath++;
-            //print(nodeInPath);
+            timer = 0;
+        }else
+        {
+            timer += Time.deltaTime;
         }
     }
 

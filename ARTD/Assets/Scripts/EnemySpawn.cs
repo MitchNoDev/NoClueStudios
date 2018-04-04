@@ -14,6 +14,7 @@ public class EnemySpawn : MonoBehaviour {
     [Header("Waves Lists")]
     public List<GameObject> waveOne;
     public List<GameObject> waveTwo;
+    public List<GameObject> waveThree;
 
     [Header ("Wave Triggers")]
     [SerializeField]
@@ -56,6 +57,7 @@ public class EnemySpawn : MonoBehaviour {
                 StartCoroutine(SpawnEnemy(waveTwo));
                 break;
             case 2:
+                StartCoroutine(SpawnEnemy(waveThree));
                 break;
         }               
     }
@@ -65,13 +67,10 @@ public class EnemySpawn : MonoBehaviour {
         GameObject temp;
 
         foreach (GameObject creep in currentWave)
-        {
-            while (true)
-            {
-                temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-                enemies.Add(temp);
-                yield return new WaitForSeconds(spawnTimer);
-            }
+        {        
+            temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
+            enemies.Add(temp);
+            yield return new WaitForSeconds(spawnTimer);         
         }
 
         ++waveNumber;
