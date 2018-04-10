@@ -6,38 +6,50 @@ public class TurretController : MonoBehaviour {
 
     [Header("Stats")]
     public int damage;
-
-    public float fireRate;
-    private float fireCountdown;
+    
+    public float fireCountdown;
+    private float timer;
 
     [Header("Game Object References")]
-    public EnemySpawn enemySpawn;
+    //public EnemySpawn enemySpawn;
+    public GameController GC;
+    public BPM BPM;
 
     public GameObject bulletPrefab;
     public Transform firePoint;
 
+    void Awake()
+    {
+        GC = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        BPM = GameObject.FindGameObjectWithTag("GameController").GetComponent<BPM>();
+        timer = 0;
+    }
+
 	// Update is called once per frame
 	void Update ()
-    {  
-        enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();
+    {
+        fireCountdown = BPM.timeForBeat;        
 
         GameObject tar = null;
 
-        if (enemySpawn.enemies.Count != 0)
+        if (GC.enemies.Count != 0)
         {
-            tar = GetClosestEnemy(enemySpawn.enemies);
+            tar = GetClosestEnemy(GC.enemies);
         }
 
         if (tar != null)
         {
             transform.LookAt(tar.transform);
 
-            if (fireCountdown <= 0f)
+            if (fireCountdown <= timer)
             {
                 Shot(tar);
-                fireCountdown = 1f / fireRate;
+                timer = 0;
+            }else
+            {
+                timer += Time.deltaTime;
             }
-            fireCountdown -= Time.deltaTime;
+
         }   
         
 	}

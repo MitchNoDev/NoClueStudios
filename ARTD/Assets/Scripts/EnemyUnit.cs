@@ -15,6 +15,7 @@ public class EnemyUnit : MonoBehaviour {
     [Header("Game Object References")]
     public EnemySpawn enemySpawn;
     public BPM BPM;
+    public GameController GC;
 
     public GridController grid;
     public List<Node> path;
@@ -27,9 +28,9 @@ public class EnemyUnit : MonoBehaviour {
 
     private void Awake()
     {        
-        enemySpawn = GameObject.FindGameObjectWithTag("GameController").GetComponent<EnemySpawn>();
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridController>();
         BPM = GameObject.FindGameObjectWithTag("GameController").GetComponent<BPM>();
+        GC = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         path = grid.path;
         jumpTimer = BPM.timeForBeat;
         timer = 0;
@@ -90,7 +91,7 @@ public class EnemyUnit : MonoBehaviour {
 
     IEnumerator Die()
     {
-        enemySpawn.enemies.Remove(gameObject);
+        GC.enemies.Remove(gameObject);
 
         yield return new WaitForSeconds(1f);
 

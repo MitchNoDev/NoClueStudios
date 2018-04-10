@@ -7,58 +7,65 @@ public class TurretSpawn : MonoBehaviour {
     public GameObject turretPrefab;
     public PathFinding pathfinding;
     public GridController grid;
+    public GameController GC;
     bool nodeSelected;
 
     public Vector3 spawnOffset;
 
     public GameObject selectedNode;
 
+    public bool canBuild;
+
     private void Start()
     {
         pathfinding = GetComponent<PathFinding>();
         grid = GetComponent<GridController>();
+        GC = GetComponent<GameController>();
     }
 
     void Update()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        if (canBuild)
         {
-            GameObject objectHit = hit.transform.gameObject;
-
-            if (Input.GetMouseButtonDown(0) && objectHit.tag == "Turret Spawn")
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                if (selectedNode == null)
+                GameObject objectHit = hit.transform.gameObject;
+
+                if (Input.GetMouseButtonDown(0) && objectHit.tag == "Turret Spawn")
                 {
-                    selectedNode = objectHit;
-                    selectedNode.layer = 8;
+                    if (selectedNode == null)
+                    {
+                        selectedNode = objectHit;
+                        selectedNode.layer = 8;
 
-                    grid.FillGrid();
-                    pathfinding.triggerPath = true;
+                        grid.FillGrid();
+                        pathfinding.triggerPath = true;
+                    }
+                    else if (selectedNode != null && selectedNode != objectHit)
+                    {
+                        selectedNode.layer = 0;
+                        selectedNode = objectHit;
+                        selectedNode.layer = 8;
+
+                        grid.FillGrid();
+                        pathfinding.triggerPath = true;
+                    }
+                    else if (selectedNode != null && selectedNode == objectHit)
+                    {
+                        SpawnTurret(selectedNode);
+                    }
                 }
-                else if (selectedNode != null && selectedNode != objectHit)
-                {
-                    selectedNode.layer = 0;
-                    selectedNode = objectHit;
-                    selectedNode.layer = 8;
+            }
 
-                    grid.FillGrid();
-                    pathfinding.triggerPath = true;
-                }
-                else if (selectedNode != null && selectedNode == objectHit)
-                {
-                    SpawnTurret(selectedNode);                    
-                }
-            }            
-        }
+            if (Input.GetMouseButtonDown(1) && selectedNode != null)
+            {
+                selectedNode.layer = 0;
+                selectedNode = null;
 
-        if (Input.GetMouseButtonDown(1) && selectedNode != null)
-        {
-            selectedNode.layer = 0;
-            selectedNode = null;
-
-            grid.FillGrid();
-            pathfinding.triggerPath = true;
+                grid.FillGrid();
+                pathfinding.triggerPath = true;
+            }
         }
     }
 

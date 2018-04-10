@@ -6,10 +6,8 @@ public class EnemySpawn : MonoBehaviour {
 
     [Header("Object References")]
     public GameObject enemySpawner;
-
+    public GameController GC;
     public BPM BPM;
-
-    public List<GameObject> enemies;
 
     [Header("Waves Lists")]
     public List<GameObject> waveOne;
@@ -19,27 +17,23 @@ public class EnemySpawn : MonoBehaviour {
     [Header ("Wave Triggers")]
     [SerializeField]
     private float spawnTimer;
-    private bool waveActive = false;
+    public bool waveActive = false;
 
     public int waveNumber;
 
     private void Start()
     {
+        GC = GetComponent<GameController>();
         spawnTimer = BPM.timeForBeat;
     }
 
     void Update()
     {
         spawnTimer = BPM.timeForBeat;
-        if (!waveActive)
-        {
-            waveActive = true;
-            StartWave();
-        }
-        
-        if(enemies.Count == 0)
+        if (waveActive)
         {
             waveActive = false;
+            StartWave();
         }
     }
 
@@ -69,7 +63,7 @@ public class EnemySpawn : MonoBehaviour {
         foreach (GameObject creep in currentWave)
         {        
             temp = Instantiate(creep, enemySpawner.transform.position, Quaternion.Euler(0, 0, 0), enemySpawner.transform);
-            enemies.Add(temp);
+            GC.enemies.Add(temp);
             yield return new WaitForSeconds(spawnTimer);         
         }
 
