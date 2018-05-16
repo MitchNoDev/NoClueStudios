@@ -38,7 +38,7 @@ public class TurretSpawn : MonoBehaviour {
                     {
                         selectedNode = objectHit;
                         selectedNode.layer = 8;
-
+                        
                         grid.FillGrid();
                         pathfinding.triggerPath = true;
                     }
@@ -53,6 +53,8 @@ public class TurretSpawn : MonoBehaviour {
                     }
                     else if (selectedNode != null && selectedNode == objectHit)
                     {
+                        selectedNode.GetComponent<NodeController>().towerOn = true;
+                        selectedNode.GetComponent<NodeController>().trigger = true;
                         SpawnTurret(selectedNode);
                     }
                 }

@@ -8,10 +8,6 @@ public class EnemyUnit : MonoBehaviour {
     [Header("Stats")]
     public int health;
 
-    [SerializeField]
-    private float jumpTimer;
-    private float timer = 0;
-
     [Header("Game Object References")]
     public EnemySpawn enemySpawn;
     public BPM BPM;
@@ -32,14 +28,10 @@ public class EnemyUnit : MonoBehaviour {
         BPM = GameObject.FindGameObjectWithTag("GameController").GetComponent<BPM>();
         GC = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         path = grid.path;
-        jumpTimer = BPM.timeForBeat;
-        timer = 0;
     }
 
     void Update()
     {
-        jumpTimer = BPM.timeForBeat;
-
         path = grid.path;
 
         if (health <= 0)
@@ -74,7 +66,7 @@ public class EnemyUnit : MonoBehaviour {
 
     void Jump()
     {
-        if (timer >= jumpTimer)
+        if (BPM.trigger)
         {
             Vector3 tar = nextNode.worldPosition;
             transform.position = tar;
@@ -82,16 +74,13 @@ public class EnemyUnit : MonoBehaviour {
             curNode = path[nodeInPath];
             nextNode = path[nodeInPath + 1];
             nodeInPath++;
-            timer = 0;
-        }else
-        {
-            timer += Time.deltaTime;
         }
     }
 
     IEnumerator Die()
     {
         GC.enemies.Remove(gameObject);
+        GC.baseHealth -= 1;
 
         yield return new WaitForSeconds(1f);
 

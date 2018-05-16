@@ -6,9 +6,7 @@ public class TurretController : MonoBehaviour {
 
     [Header("Stats")]
     public int damage;
-    
-    public float fireCountdown;
-    private float timer;
+    public int cost;
 
     [Header("Game Object References")]
     //public EnemySpawn enemySpawn;
@@ -22,14 +20,11 @@ public class TurretController : MonoBehaviour {
     {
         GC = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         BPM = GameObject.FindGameObjectWithTag("GameController").GetComponent<BPM>();
-        timer = 0;
     }
 
 	// Update is called once per frame
 	void Update ()
-    {
-        fireCountdown = BPM.timeForBeat;        
-
+    {        
         GameObject tar = null;
 
         if (GC.enemies.Count != 0)
@@ -41,17 +36,11 @@ public class TurretController : MonoBehaviour {
         {
             transform.LookAt(tar.transform);
 
-            if (fireCountdown <= timer)
+            if (BPM.trigger)
             {
                 Shot(tar);
-                timer = 0;
-            }else
-            {
-                timer += Time.deltaTime;
             }
-
-        }   
-        
+        }        
 	}
 
     GameObject GetClosestEnemy(List<GameObject> enemies)

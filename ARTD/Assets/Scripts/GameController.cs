@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     public int cash;
+    public int baseHealth;
     public int waveNumber;
     public string phaseType;
 
@@ -15,6 +17,11 @@ public class GameController : MonoBehaviour {
     public TurretSpawn turretSpawn;
     public EnemySpawn enemySpawn;
     public BPM BPM;
+
+    [Header("UI")]
+    public Text cashText;
+    public Text healthText;
+    public Text waveText;
 
     private void Awake()
     {
@@ -29,6 +36,11 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
+        if(baseHealth <= 0)
+        {
+            //GameOver Man
+        }
+
         switch(phaseType)
         {
             case "StartPhase":
@@ -41,7 +53,6 @@ public class GameController : MonoBehaviour {
                 break;
 
             case "WavePhase":
-                enemySpawn.waveActive = true;
                 if(enemies.Count == 0)
                 {
                     phaseType = "EndPhase";
@@ -56,6 +67,11 @@ public class GameController : MonoBehaviour {
 
                 break;
         }
+
+        cashText.text = "Cash: " + cash.ToString();
+        healthText.text = "Health: " + baseHealth.ToString();
+        waveText.text = "Wave: " + waveNumber.ToString();
+
     }
 
     public void StartWave()
